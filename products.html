@@ -1,2 +1,228 @@
-<h2>Продукти</h2>
-<div id="products-list"></div>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Продукти</title>
+  <link rel="stylesheet" type="text/css" href="products.css">
+  <link rel="stylesheet" type="text/css" href="cart.css">
+  <link rel="stylesheet" type="text/css" href="kamin.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Fire place</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Головна</a></li>
+        <li><a href="products.html">Продукти</a></li>
+        <li><a href="cart.html">Кошик</a></li>
+        <li><a href="orders.html">Замовлення</a></li>
+        <li><a href="login.html">Увійти</a></li>
+      </ul>
+    </nav>
+  </header>
+  <h2>Продукти</h2>
+  <div class="catalog">
+    <div class="filter">
+      <h3>Фільтр продуктів</h3>
+      <label for="filter-category">Категорія:</label>
+      <select id="filter-category">
+        <option value="all">Всі</option>
+        <option value="category1">kaw met</option>
+        <option value="category2">etna</option>
+        <option value="category3">electro kamin</option>
+      </select>
+      <label for="filter-price">Ціна:</label>
+      <input type="number" id="filter-price" min="0">
+      <button onclick="filterProducts()">Фільтрувати</button>
+    </div>
+<div class="product-list" id="products-list"></div>
+  </div>
+  <div id="cart" class="cart">
+    <h3>Кошик</h3>
+    <ul class="cart-items"></ul>
+  </div>
+  <script>
+    // Масив з даними про товари
+    const productsData = [
+      { id: 1,images: ["image1.jpg", "image2.jpg"], name: "Топка 1", price: 100, description: "Опис товару 1", },
+      { id: 2,images: ["image3.jpg", "image4.jpg"], name: "Топка 2", price: 200, description: "Опис товару 2", },
+      { id: 3,images: ["image5.jpg", "image6.jpg"], name: "Топка 3", price: 300, description: "Опис товару 3", },
+      { id: 4,images: ["image7.jpg", "image8.jpg"], name: "Топка 4", price: 400, description: "Опис товару 4", },
+      { id: 5,images: ["image9.jpg", "image10.jpg"], name: "Топка 5", price: 500, description: "Опис товару 5", },
+    ];
+
+    // Отримуємо елементи
+    const productsList = document.getElementById("products-list");
+    const cartItemsList = document.querySelector(".cart-items");
+
+    // Змінна для зберігання обраних товарів
+    const cartItems = [];
+
+    // Функція для створення вікон товарів
+    function createProductWindows() {
+      productsData.forEach(product => {
+        const productWindow = document.createElement("div");
+        productWindow.classList.add("product-window");
+
+        const productName = document.createElement("h3");
+        productName.textContent = product.name;
+
+        const productPrice = document.createElement("p");
+        productPrice.textContent = "Ціна: $" + product.price;
+
+        const productDescription = document.createElement("p");
+        productDescription.textContent = product.description;
+
+        const productImages = document.createElement("div");
+        product.images.forEach(image => {
+          const img = document.createElement("img");
+          img.src = image;
+          productImages.appendChild(img);
+        });
+
+        const addToCartButton = document.createElement("button");
+        addToCartButton.textContent = "Додати до кошика";
+        addToCartButton.addEventListener("click", () => addToCart(product));
+
+        productWindow.appendChild(productName);
+        productWindow.appendChild(productPrice);
+        productWindow.appendChild(productDescription);
+        productWindow.appendChild(productImages);
+        productWindow.appendChild(addToCartButton);
+
+        productsList.appendChild(productWindow);
+      });
+    }
+
+    // Функція для додавання товару до кошика
+    function addToCart(product) {
+      cartItems.push(product);
+      updateCart();
+    }
+
+    // Функція для оновлення вмісту кошика
+    function updateCart() {
+      cartItemsList.innerHTML = "";
+      cartItems.forEach(item => {
+        const cartItem = document.createElement("li");
+        cartItem.textContent = item.name + " - $" + item.price;
+        cartItemsList.appendChild(cartItem);
+      });
+    }
+
+    // Викликаємо функцію для створення вікон товарів
+    createProductWindows();
+  </script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+    }
+
+    .header {
+      background-color: #f1f1f1;
+      padding: 10px;
+    }
+
+    .header h1 {
+      color: #333;
+    }
+
+    .header ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .header ul li {
+      display: inline;
+      margin-right: 10px;
+    }
+
+    .header ul li a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .catalog {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .filter {
+      flex: 0 0 25%;
+      margin-right: 20px;
+    }
+
+    .filter h3 {
+      margin-bottom: 10px;
+    }
+
+    .filter label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .filter select,
+    .filter input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .filter button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #5a5a5a;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .filter button:hover {
+      background-color: #363636;
+    }
+
+    .product-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .product-window {
+      flex: 0 0 30%;
+      border: 1px solid #333;
+      padding: 20px;
+      cursor: pointer;
+    }
+
+    .cart {
+      flex: 0 0 25%;
+      padding: 20px;
+      background-color: #f1f1f1;
+    }
+
+    .cart-items {
+      list-style: none;
+      padding: 0;
+    }
+
+    .cart-items li {
+      margin-bottom: 5px;
+    }
+  </style>
+</body>
+</html>

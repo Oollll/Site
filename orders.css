@@ -1,0 +1,49 @@
+/* Стилі для таблиці замовлень */
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Стилі для заголовка таблиці */
+  h2 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+  
+  /* Стилі для кнопок зміни статусу замовлень */
+  .status-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .status-button.pending {
+    background-color: yellow;
+  }
+  
+  .status-button.processing {
+    background-color: orange;
+  }
+  
+  .status-button.completed {
+    background-color: green;
+    color: white;
+  }
+  
+  /* Стилі для повідомлення про порожню таблицю */
+  .empty-message {
+    margin-top: 20px;
+    color: red;
+  }
+  
